@@ -117,7 +117,7 @@ int *fetch_input(int *num)
 	scanf("%d", num);
 	if ((*num) < 1)
 	{
-		fscanf(stdin,\
+		fprintf(stderr,\
 			"Error: Invalid input. Enter a higher integer\n");
 		exit(EXIT_FAILURE);
 	}
@@ -125,7 +125,7 @@ int *fetch_input(int *num)
 	array = malloc((*num) * sizeof(int));
 	if (!array)
 	{
-		fprintf(stdin, "Error: Insufficient space.\n");
+		fprintf(stderr, "Error: Insufficient space.\n");
 		exit(EXIT_FAILURE);
 	}
 	for (count = 0; count < (*num); count++)
