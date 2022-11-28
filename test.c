@@ -4,7 +4,9 @@
 #define UNUSED __attribute__((unused))
 
 
-int *largestRange(int *array);	/* PROTOTYPE FOR THE FUNCTION */
+int *largestRange(int *array, int arr_size);	/* PROTOTYPE FOR THE FUNCTION */
+int *fetch_input(int *num);	/* PROTOTYPE FOR THE INPUT FUNCTION */
+
 
 
 /**
@@ -14,11 +16,14 @@ int *largestRange(int *array);	/* PROTOTYPE FOR THE FUNCTION */
  */
 int main(void)
 {
-	UNUSED int my_array[] = {1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6}, a = 0;
-	UNUSED int *my_range = NULL, arr_size = sizeof(my_array) / sizeof(int);
+	UNUSED int *my_array = NULL, a = 0;
+	UNUSED int *my_range = NULL, arr_size = 0;
+
+	/* fetching input from the user */
+	my_array = fetch_input(&arr_size);
 
 	/* The line below calls the function */
-	my_range = largestRange(my_array);
+	my_range = largestRange(my_array, arr_size);
 
 	printf("sizeof(my_array) = %d\n", arr_size);
 
@@ -48,6 +53,7 @@ int main(void)
  * largestRange - returns an array of length 2, which contains the largest
  * range in an array
  * @array: the integer array to work on
+ * @arr_size: the number of elements in the array
  *
  * Description: the first element of the returned array is the first number
  * and the second element is the second number which make up the largest
@@ -56,11 +62,10 @@ int main(void)
  * Return: a 2-element array.
  * or NULL if array is NULL
  */
-int *largestRange(int *array)
+int *largestRange(int *array, int arr_size)
 {
 	static int range[2] = {0, 0};
 	int len = 0;
-	int arr_size = sizeof(array);
 	int a = 0, b = 0;
 
 	if ((!array) || (arr_size == 1))
@@ -90,4 +95,45 @@ int *largestRange(int *array)
 	}
 
 	return (range);
+}
+
+
+/* CODE FOR FUNCTION TO GET INPUT */
+
+/**
+ * fetch_input - receives integers from the user
+ * @num: container for the num of input
+ *
+ * Description: Only integers allowed
+ * Return: pointer to allocated space for the array of integers
+ * else returns NULL if function fails
+ */
+int *fetch_input(int *num)
+{
+	int *array = NULL;
+	int count = 0;
+
+	printf("\nEnter the number of integers you want to enter: ");
+	scanf("%d", num);
+	if ((*num) < 1)
+	{
+		fscanf(stdin,\
+			"Error: Invalid input. Enter a higher integer\n");
+		exit(EXIT_FAILURE);
+	}
+
+	array = malloc((*num) * sizeof(int));
+	if (!array)
+	{
+		fprintf(stdin, "Error: Insufficient space.\n");
+		exit(EXIT_FAILURE);
+	}
+	for (count = 0; count < (*num); count++)
+	{
+		printf("Enter an integer: ");
+		scanf("%d", &array[count]);
+	}
+	printf("\nEntry completed!\n\n");
+
+	return (array);
 }
