@@ -112,9 +112,10 @@ int *fetch_input(int *num)
 {
 	int *array = NULL;
 	int count = 0;
+	UNUSED int dummy = 0;
 
 	printf("\nEnter the number of integers you want to enter: ");
-	scanf("%d", num);
+	dummy = scanf("%d", num);
 	if ((*num) < 1)
 	{
 		fprintf(stderr,\
@@ -131,7 +132,7 @@ int *fetch_input(int *num)
 	for (count = 0; count < (*num); count++)
 	{
 		printf("Enter an integer: ");
-		scanf("%d", &array[count]);
+		dummy = scanf("%d", &array[count]);
 	}
 	printf("\nEntry completed!\n\n");
 
